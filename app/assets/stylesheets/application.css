@@ -10862,3 +10862,13 @@ html {
   background-repeat: no-repeat;
   min-height: 15rem;
 }
+
+/* Add to your CSS file */
+.clickable-card {
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.clickable-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    transform: scale(1.02);
+}

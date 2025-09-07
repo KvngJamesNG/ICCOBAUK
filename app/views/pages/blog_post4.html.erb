@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%= render "partials/header" %>
+<!-- Page Content-->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-3">
+                <div class="d-flex align-items-center mt-lg-5 mb-4">
+                    <%= image_tag "gallery/small/llw-cssmall50.png", class: "img-fluid rounded-circle", alt: "...50x50" %>
+                    <div class="ms-3">
+                        <div class="fw-bold">Louis Ubebe</div>
+                        <div class="text-muted">Director, LLW-CS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h1 class="fw-bolder mb-1">ICCOBAUK/EUROPE ANNUAL CONVENTION 2025!</h1>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">July 1, 2025</div>
+                        <!-- Post categories-->
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Business Development</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Project Management</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Msc</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">...</a>
+                    </header>
+                    <!-- Preview image figure-->
+                    <figure class="mb-4">
+                        <%= image_tag "gallery/2018convention/cc201822.jpg", class: "img-fluid rounded" %>
+                    </figure>
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        <p class="fs-5 mb-4">The dangers of insularity and narrow thinking in tribal enclaves cannot be overstated. Nigerians in the diaspora, particularly members of our ICCOBA community, must recognise the transformative power of diversity. Clinging to narrow tribal affiliations limits growth and diminishes the collective value we bring to society.</p>
+                        <p class="fs-5 mb-4">Taking ICCOBA as a case study, many members gravitate almost exclusively towards their own set groups. While this tendency may stem from comfort and familiarity, it restricts opportunities for broader engagement and development. True growth demands stepping beyond such boundaries, engaging with other sets and wider networks. What may seem insurmountable alone often becomes achievable when shared among peers — as the saying goes, two heads are better than one. Scripture also reminds us: “Come, let us reason together.”</p>
+                        <p class="fs-5 mb-4">Building strong networks is particularly crucial in the diaspora. ICCOBA members in the UK and Europe would do well to learn from ICCOBA USA, where deliberate efforts to foster connections have yielded measurable benefits. Connections within such associations often open unexpected doors, professionally and personally.</p>
+                        <p class="fs-5 mb-4">We should also draw inspiration from the world’s strongest alumni bodies — Harvard, Oxford, Cambridge — where affiliation is a powerful enabler of success. These institutions thrive because they embrace progressive cultures, encourage intellectual curiosity, and prioritise collective advancement over parochial interests. That is the model we must emulate.</p>
+                        <p class="fs-5 mb-4">As a community, we must move beyond the lower rungs of Maslow’s hierarchy — preoccupation with mere survival — and elevate ourselves toward self-actualisation. Our host countries provide infrastructure of good governance, rule of law, and accountability. These are not merely benefits we enjoy; they are values we can internalise and eventually take back home to help shape a better Nigeria.</p>
+                        <p class="fs-5 mb-4">Reflecting on Immaculate Conception College itself, founded on discipline, structure, and excellence, ICCOBA must rise above tribalism and embrace a culture of growth and collaboration, as now seen in the UK. This is essential to remain true to our legacy.</p>
+                        <p class="fs-5 mb-4">Finally, we commend the outgoing president of ICCOBA UK for his sterling service in laying the foundation for this association. His pioneering efforts will remain a source of pride, and we are confident that the incoming president will build on this legacy, taking our association to even greater heights.</p>
+
+
+                </article>
+                <!-- Comments section-->
+                <%
+=begin%>
+                <section>
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <!-- Comment form-->
+                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                            <!-- Comment with nested comments-->
+                            <div class="d-flex mb-4">
+                                <!-- Parent comment-->
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">Commenter Name</div>
+                                    If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                    <!-- Child comment 1-->
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">Commenter Name</div>
+                                            And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                        </div>
+                                    </div>
+                                    <!-- Child comment 2-->
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">Commenter Name</div>
+                                            When you put money directly to a problem, it makes a good headline.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single comment-->
+                            <div class="d-flex">
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">Commenter Name</div>
+                                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <%
+=end%>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+<!-- Footer-->
+<%= render "partials/footer" %>
+
+</html>
