@@ -3,6 +3,7 @@
 <header class="bg-dark py-5">
     <div class="container px-5">
         <div class="row gx-5 align-items-center justify-content-center">
+
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder text-white mb-3">Welcome to ICCOBA UK/Europe</h1>
@@ -11,11 +12,11 @@
                     <p class="lead fw-normal text-white-50 mb-4">Proudly Sponsored by LLW Consultancy Ltd</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
-                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="<%= about_us_path %>">Learn More</a>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+            <div class="col-xl-5 col-xxl-6 text-center">
                 <div id="productCarousel" class="carousel slide my-5 rounded-3" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-3">
                         <div class="carousel-item active">
@@ -29,6 +30,15 @@
                         </div>
                         <div class="carousel-item">
                             <%= image_tag "slides/class88.png", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
+                        </div>
+                        <div class="carousel-item">
+                            <%= image_tag "gallery/2025convention/feature_bg.png", class: "d-block w-100 img-fluid", alt: "Slide 3" %>
+                        </div>
+                        <div class="carousel-item">
+                            <%= image_tag "gallery/presidentworldwide2.jpg", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
+                        </div>
+                        <div class="carousel-item">
+                            <%= image_tag "slides/schoolgate.jpg", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
                         </div>
                     </div>
 
@@ -85,13 +95,13 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-10 col-xl-7">
                 <div class="text-center">
-                    <div class="fs-4 mb-4 fst-italic">"Working with Start Bootstrap templates has saved me tons of development time when building new projects! Starting with a Bootstrap template just makes things easier!"</div>
+                    <div class="fs-4 mb-4 fst-italic">"Being part of ICCOBA keeps me connected to my roots while making a real impact back home. Every project and event reminds me that together, we’re building more than memories, we’re shaping the future of ICC."</div>
                     <div class="d-flex align-items-center justify-content-center">
-                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                        <%= image_tag "gallery/presidentworldwide40.jpg", class: "rounded-circle me-3", alt: "..." %>
                         <div class="fw-bold">
-                            Tom Ato
+                            President,
                             <span class="fw-bold text-primary mx-1">/</span>
-                            CEO, Pomodoro
+                            ICCOBA Worldwide
                         </div>
                     </div>
                 </div>
@@ -106,28 +116,28 @@
             <div class="col-lg-8 col-xl-6">
                 <div class="text-center">
                     <h2 class="fw-bolder">From our blog</h2>
-                    <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p>
+                    <p class="lead fw-normal text-muted mb-5">Stay updated with the latest news, stories, and highlights from ICCOBAUK covering events, achievements, and community updates worldwide.</p>
                 </div>
             </div>
         </div>
         <div class="row gx-5">
             <div class="col-lg-4 mb-5">
                 <div class="card h-100 shadow border-0">
-                    <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                    <%= image_tag "gallery/pleaseregistersmall.jpg", class: "card-img-top", alt: "...600x350" %>
                     <div class="card-body p-4">
                         <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="#!">
-                            <h5 class="card-title mb-3">Blog post title</h5>
+                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post_path %>">
+                            <h5 class="card-title mb-3">Welcome to the ICCOBAUK/EUROPE ANNUAL CONVENTION 2025!</h5>
                         </a>
-                        <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text mb-0">This highly anticipated event is happening soon at the DoubleTree by Hilton Coventry, promising an unforgettable in-person experience for all attendees.</p>
                     </div>
                     <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                         <div class="d-flex align-items-end justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                <div class="small">
-                                    <div class="fw-bold">Kelly Rowan</div>
-                                    <div class="text-muted">March 12, 2023 &middot; 6 min read</div>
+                                <%= image_tag "gallery/small/llw-cssmall40.png", class: "rounded-circle me-3", alt: "..." %>
+                                <div class=" small">
+                                    <div class="fw-bold">Adewale Adesina</div>
+                                    <div class="text-muted">September 05, 2025 &middot; 2 min read</div>
                                 </div>
                             </div>
                         </div>
@@ -136,21 +146,21 @@
             </div>
             <div class="col-lg-4 mb-5">
                 <div class="card h-100 shadow border-0">
-                    <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                    <%= image_tag "gallery/presidentworldwide2.jpg", class: "card-img-top", alt: "...600x350" %>
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="#!">
-                            <h5 class="card-title mb-3">Another blog post title</h5>
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post2_path %>">
+                            <h5 class="card-title mb-3">ICCOBAUK/EUROPE ANNUAL CONVENTION 2025!</h5>
                         </a>
-                        <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text mb-0">The ICCOBA Worldwide President has made a remarkable financial contribution in support of the upcoming 2025 Convention. His generosity highlights a strong commitment to the association’s vision and to strengthening the bond among Old Boys across the globe. The donation will go a long way in ensuring a successful and memorable gathering for all members.</p>
                     </div>
                     <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                         <div class="d-flex align-items-end justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                <div class="small">
-                                    <div class="fw-bold">Josiah Barclay</div>
-                                    <div class="text-muted">March 23, 2023 &middot; 4 min read</div>
+                                <%= image_tag "gallery/small/cc20186small40.jpg", class: "rounded-circle me-3", alt: "..." %>
+                                <div class=" small">
+                                    <div class="fw-bold">Louis Ubebe</div>
+                                    <div class="text-muted">September 01, 2025 &middot; 2 min read</div>
                                 </div>
                             </div>
                         </div>
@@ -159,45 +169,44 @@
             </div>
             <div class="col-lg-4 mb-5">
                 <div class="card h-100 shadow border-0">
-                    <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
+                    <%= image_tag "gallery/llw-cs.png", class: "card-img-top", alt: "...600x350" %>
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="#!">
-                            <h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5>
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">Latest News</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post3_path %>">
+                            <h5 class="card-title mb-3">LLW Consultancy: London’s Rising Tech Power</h5>
                         </a>
-                        <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text mb-0">LLW Consultancy Services is rapidly emerging as a tech giant in London, UK, dedicated to delivering innovative solutions for businesses across industries. Our team of skilled developers, cloud engineers, and IT strategists are committed to transforming ideas into scalable, efficient technology products that meet the demands of the modern market.</p>
                     </div>
                     <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                         <div class="d-flex align-items-end justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                <div class="small">
-                                    <div class="fw-bold">Evelyn Martinez</div>
-                                    <div class="text-muted">April 2, 2023 &middot; 10 min read</div>
+                                <%= image_tag "gallery/small/cc20186small40.jpg", class: "rounded-circle me-3", alt: "..." %>
+                                <div class=" small">
+                                    <div class="fw-bold">Louis Ubebe</div>
+                                    <div class="text-muted">August 18, 2025 &middot; 4 min read</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Call to action-->
+            <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                    <div class="mb-4 mb-xl-0">
+                        <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
+                        <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
+                    </div>
+                    <div class="ms-xl-4">
+                        <div class="input-group mb-2">
+                            <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
+                            <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
+                        </div>
+                        <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                    </div>
+                </div>
+            </aside>
         </div>
-        <!-- Call to action-->
-        <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                <div class="mb-4 mb-xl-0">
-                    <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
-                    <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
-                </div>
-                <div class="ms-xl-4">
-                    <div class="input-group mb-2">
-                        <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
-                        <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
-                    </div>
-                    <div class="small text-white-50">We care about privacy, and will never share your data.</div>
-                </div>
-            </div>
-        </aside>
-    </div>
 </section>
 </main>
 <%= render "partials/footer" %>

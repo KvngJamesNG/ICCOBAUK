@@ -8,6 +8,15 @@ class PagesController < ApplicationController
   def blog_post
   end
 
+  def blog_post2
+  end
+
+  def blog_post3
+  end
+
+  def blog_post4
+  end
+
   def blog_home
   end
 
@@ -18,6 +27,12 @@ class PagesController < ApplicationController
   end
 
   def portfolio_item
+  end
+
+  def portfolio_item2
+  end
+
+  def portfolio_item3
   end
 
   def portfolio_overview
