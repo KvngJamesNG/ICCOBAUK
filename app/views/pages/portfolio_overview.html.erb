@@ -7,25 +7,101 @@
             <p class="lead fw-normal text-muted mb-0">Our Time Capsule</p>
         </div>
 
-        <div class="row g-4">
-            <% @gallery_images.each do |gallery_image| %>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow border-0">
-                    <% if gallery_image.image.attached? %>
-                    <%= image_tag gallery_image.image, class: "card-img-top", alt: gallery_image.title %>
-                    <% end %>
-                    <div class="card-body">
-                        <h2 class="h5 card-title"><%= gallery_image.title %></h2>
-                        <% if gallery_image.caption.present? %>
-                        <p class="card-text text-muted mb-0"><%= gallery_image.caption %></p>
-                        <% end %>
+        <% @gallery_groups.each do |gallery_group| %>
+        <% next if gallery_group.gallery_images.empty? %>
+        <% modal_id = "gallery-group-#{gallery_group.id}-modal" %>
+        <% carousel_id = "gallery-group-#{gallery_group.id}-carousel" %>
+        <div class="mb-4">
+            <% cover_image = gallery_group.gallery_images.find { |gallery_image| gallery_image.image.attached? } %>
+            <h2 class="h3 fw-bolder mb-3"><%= gallery_group.name %></h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <button type="button" class="btn btn-link p-0 text-decoration-none text-reset w-100" data-bs-toggle="modal" data-bs-target="##{modal_id}">
+                        <div class="card h-100 shadow border-0 overflow-hidden gallery-album-card w-100">
+                            <% if cover_image.present? %>
+                            <%= image_tag cover_image.image, class: "card-img-top gallery-album-cover", alt: gallery_group.name %>
+                            <% else %>
+                            <div class="gallery-album-cover d-flex align-items-center justify-content-center bg-light text-muted">
+                                No cover image
+                            </div>
+                            <% end %>
+                            <div class="card-body">
+                                <h3 class="h5 card-title mb-1"><%= gallery_group.name %></h3>
+                                <p class="card-text text-muted mb-0"><%= pluralize(gallery_group.gallery_images.count, "image") %></p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="<%= modal_id %>" tabindex="-1" aria-labelledby="<%= modal_id %>-label" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div>
+                                <h3 class="modal-title h5 mb-0" id="<%= modal_id %>-label"><%= gallery_group.name %></h3>
+                                <p class="text-muted small mb-0"><%= pluralize(gallery_group.gallery_images.count, "image") %> in this group</p>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="false">
+                                <div class="carousel-inner">
+                                    <% gallery_group.gallery_images.each_with_index do |gallery_image, index| %>
+                                    <div class="carousel-item <%= "active" if index.zero? %>">
+                                        <% if gallery_image.image.attached? %>
+                                        <%= image_tag gallery_image.image, class: "d-block w-100 rounded", alt: gallery_image.title %>
+                                        <% end %>
+                                        <div class="pt-3">
+                                            <h4 class="h6 mb-1"><%= gallery_image.title %></h4>
+                                            <% if gallery_image.caption.present? %>
+                                            <p class="text-muted mb-0"><%= gallery_image.caption %></p>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                    <% end %>
+                                </div>
+                                <% if gallery_group.gallery_images.size > 1 %>
+                                <button class="carousel-control-prev" type="button" data-bs-target="##{carousel_id}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="##{carousel_id}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                                <% end %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <% end %>
         </div>
+        <% end %>
 
-        <% if @gallery_images.empty? %>
+        <% if @ungrouped_gallery_images.any? %>
+        <div class="mb-4">
+            <h2 class="h3 fw-bolder mb-3">Other Photos</h2>
+            <div class="row g-4">
+                <% @ungrouped_gallery_images.each do |gallery_image| %>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow border-0">
+                        <% if gallery_image.image.attached? %>
+                        <%= image_tag gallery_image.image, class: "card-img-top", alt: gallery_image.title %>
+                        <% end %>
+                        <div class="card-body">
+                            <h3 class="h5 card-title"><%= gallery_image.title %></h3>
+                            <% if gallery_image.caption.present? %>
+                            <p class="card-text text-muted mb-0"><%= gallery_image.caption %></p>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+
+        <% if @gallery_groups.all? { |group| group.gallery_images.empty? } && @ungrouped_gallery_images.empty? %>
         <p class="text-muted mt-4">No gallery images uploaded yet.</p>
         <% end %>
     </div>

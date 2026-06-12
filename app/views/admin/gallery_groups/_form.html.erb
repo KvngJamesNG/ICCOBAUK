@@ -1,0 +1,19 @@
+<%= form_with model: [ :admin, gallery_group ] do |form| %>
+<% if gallery_group.errors.any? %>
+<div class="alert alert-danger">
+    <h2 class="h6 mb-2"><%= pluralize(gallery_group.errors.count, "error") %> prevented saving:</h2>
+    <ul class="mb-0">
+        <% gallery_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="mb-3">
+    <%= form.label :name, "Group name", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "e.g. Convention 2025" %>
+</div>
+
+<%= form.submit class: "btn btn-primary" %>
+<% end %>

@@ -16,14 +16,29 @@
 </div>
 
 <div class="mb-3">
+    <%= form.label :gallery_group_id, "Group", class: "form-label" %>
+    <%= form.collection_select :gallery_group_id, @gallery_groups, :id, :name, { include_blank: "No group" }, class: "form-select" %>
+    <p class="small text-muted mt-1 mb-0">Assign this image (or batch) to a named group.</p>
+</div>
+
+<div class="mb-3">
     <%= form.label :caption, class: "form-label" %>
     <%= form.text_area :caption, rows: 3, class: "form-control" %>
 </div>
 
 <div class="mb-3">
-    <%= form.label :image, class: "form-label" %>
+    <%= form.label :image, gallery_image.new_record? ? "Single image" : "Replace image", class: "form-label" %>
     <%= form.file_field :image, class: "form-control", accept: "image/*" %>
+    <p class="small text-muted mt-1 mb-0">Use this for one image. You can also upload multiple images below when creating a new gallery item.</p>
 </div>
+
+<% if gallery_image.new_record? %>
+<div class="mb-3">
+    <label class="form-label" for="gallery_image_images">Multiple images</label>
+    <%= file_field_tag "gallery_image[images][]", multiple: true, class: "form-control", id: "gallery_image_images", accept: "image/*" %>
+    <p class="small text-muted mt-1 mb-0">Select several files here to create multiple gallery images in the same group at once.</p>
+</div>
+<% end %>
 
 <%= form.submit class: "btn btn-primary" %>
 <% end %>

@@ -41,7 +41,8 @@ class PagesController < ApplicationController
   end
 
   def portfolio_overview
-    @gallery_images = GalleryImage.recent
+    @gallery_groups = GalleryGroup.includes(gallery_images: [ image_attachment: :blob ]).ordered
+    @ungrouped_gallery_images = GalleryImage.includes(image_attachment: :blob).where(gallery_group_id: nil).recent
   end
 
   def events

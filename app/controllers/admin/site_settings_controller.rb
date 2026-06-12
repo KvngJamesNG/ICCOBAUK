@@ -20,6 +20,11 @@ class Admin::SiteSettingsController < Admin::BaseController
   private
 
   def site_setting_params
-    params.require(:site_setting).permit(:theme_document_title, :theme_document)
+    params.require(:site_setting).permit(
+      :theme_document_title,
+      :theme_document,
+      :home_convention_text,
+      :home_sponsor_text
+    )
   end
 end

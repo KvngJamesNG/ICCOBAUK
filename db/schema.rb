@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_08_001700) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_12_063100) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -102,11 +102,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_08_001700) do
     t.index ["path"], name: "index_click_events_on_path"
   end
 
+  create_table "gallery_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_gallery_groups_on_name", unique: true
+  end
+
   create_table "gallery_images", force: :cascade do |t|
     t.string "title", null: false
     t.text "caption"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gallery_group_id"
+    t.index ["gallery_group_id"], name: "index_gallery_images_on_gallery_group_id"
   end
 
   create_table "info_pages", force: :cascade do |t|
@@ -125,6 +134,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_08_001700) do
     t.datetime "updated_at", null: false
     t.string "admin_username"
     t.string "admin_password"
+    t.string "home_convention_text"
+    t.string "home_sponsor_text"
   end
 
   create_table "site_visits", force: :cascade do |t|
@@ -164,4 +175,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_08_001700) do
   add_foreign_key "article_likes", "articles"
   add_foreign_key "articles", "article_categories"
   add_foreign_key "articles", "authors"
+  add_foreign_key "gallery_images", "gallery_groups"
 end

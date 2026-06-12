@@ -4,7 +4,10 @@
     <div class="container px-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="fw-bolder mb-0">Manage Gallery Images</h1>
-            <%= link_to "New Image", new_admin_gallery_image_path, class: "btn btn-primary" %>
+            <div class="d-flex gap-2">
+                <%= link_to "Manage Groups", admin_gallery_groups_path, class: "btn btn-outline-secondary" %>
+                <%= link_to "New Image", new_admin_gallery_image_path, class: "btn btn-primary" %>
+            </div>
         </div>
 
         <% if @gallery_images.any? %>
@@ -17,6 +20,9 @@
                     <% end %>
                     <div class="card-body">
                         <h2 class="h5"><%= gallery_image.title %></h2>
+                        <% if gallery_image.gallery_group.present? %>
+                        <p class="mb-2"><span class="badge text-bg-primary"><%= gallery_image.gallery_group.name %></span></p>
+                        <% end %>
                         <p class="text-muted mb-0"><%= gallery_image.caption %></p>
                     </div>
                     <div class="card-footer bg-white border-0 d-flex gap-2">

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :articles
     resources :article_categories, except: [ :new, :show ]
     resources :authors
+    resources :gallery_groups
     resources :gallery_images
     resources :slider_images
     resources :info_pages

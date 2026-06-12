@@ -7,7 +7,7 @@
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder text-white mb-3">Welcome to ICCOBA UK/Europe</h1>
-                    <p class="lead fw-normal text-white-50 mb-4">12th–14th September 2025 Convention</p>
+                    <p class="lead fw-normal text-white-50 mb-4"><%= @site_setting.home_convention_text_value %></p>
                     <% if @site_setting.theme_document.attached? %>
                     <p class="mb-4">
                         <a href="<%= rails_blob_path(@site_setting.theme_document, disposition: "attachment") %>" target="_blank" class="btn btn-primary btn-lg fw-bold px-4 py-2 shadow-lg border-3 border-dark" style="text-decoration:none; font-size:1.25rem;">
@@ -16,7 +16,7 @@
                         </a>
                     </p>
                     <% end %>
-                    <p class="lead fw-normal text-white-50 mb-4">Proudly Sponsored by LLW Consultancy Ltd</p>
+                    <p class="lead fw-normal text-white-50 mb-4"><%= @site_setting.home_sponsor_text_value %></p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
                         <a class="btn btn-outline-light btn-lg px-4" href="<%= about_us_path %>">Learn More</a>

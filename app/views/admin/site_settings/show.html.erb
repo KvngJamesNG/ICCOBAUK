@@ -6,6 +6,8 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p><strong>Theme document title:</strong> <%= @site_setting.theme_document_title.presence || "Theme Document" %></p>
+                <p><strong>Homepage convention text:</strong> <%= @site_setting.home_convention_text_value %></p>
+                <p><strong>Homepage sponsor text:</strong> <%= @site_setting.home_sponsor_text_value %></p>
 
                 <% if @site_setting.theme_document.attached? %>
                 <p class="mb-0">

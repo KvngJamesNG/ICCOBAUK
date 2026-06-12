@@ -3,6 +3,9 @@
 <section class="py-5">
     <div class="container px-5" style="max-width: 900px;">
         <h1 class="fw-bolder mb-2"><%= @gallery_image.title %></h1>
+        <% if @gallery_image.gallery_group.present? %>
+        <p class="mb-2"><span class="badge text-bg-primary"><%= @gallery_image.gallery_group.name %></span></p>
+        <% end %>
         <% if @gallery_image.caption.present? %>
         <p class="text-muted mb-4"><%= @gallery_image.caption %></p>
         <% end %>

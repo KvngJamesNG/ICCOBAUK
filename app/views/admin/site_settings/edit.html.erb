@@ -21,6 +21,16 @@
         </div>
 
         <div class="mb-3">
+            <%= form.label :home_convention_text, "Homepage Convention Text", class: "form-label" %>
+            <%= form.text_field :home_convention_text, class: "form-control", placeholder: SiteSetting::DEFAULT_HOME_CONVENTION_TEXT %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :home_sponsor_text, "Homepage Sponsor Text", class: "form-label" %>
+            <%= form.text_field :home_sponsor_text, class: "form-control", placeholder: SiteSetting::DEFAULT_HOME_SPONSOR_TEXT %>
+        </div>
+
+        <div class="mb-3">
             <%= form.label :theme_document, "Theme Document File", class: "form-label" %>
             <%= form.file_field :theme_document, class: "form-control", accept: ".pdf,.doc,.docx" %>
             <% if @site_setting.theme_document.attached? %>

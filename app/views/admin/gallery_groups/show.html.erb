@@ -1,0 +1,48 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5">
+        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+            <div>
+                <h1 class="fw-bolder mb-2"><%= @gallery_group.name %></h1>
+                <p class="text-muted mb-0"><%= pluralize(@gallery_images.count, "image") %> in this group</p>
+            </div>
+            <div class="d-flex gap-2 flex-wrap justify-content-end">
+                <%= link_to "Add Image", new_admin_gallery_image_path(gallery_group_id: @gallery_group.id), class: "btn btn-primary" %>
+                <%= link_to "Edit Group", edit_admin_gallery_group_path(@gallery_group), class: "btn btn-outline-primary" %>
+                <%= link_to "Back", admin_gallery_groups_path, class: "btn btn-outline-secondary" %>
+            </div>
+        </div>
+
+        <% if @gallery_images.any? %>
+        <div class="row g-4">
+            <% @gallery_images.each do |gallery_image| %>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <% if gallery_image.image.attached? %>
+                    <%= image_tag gallery_image.image, class: "card-img-top", alt: gallery_image.title %>
+                    <% end %>
+                    <div class="card-body">
+                        <h2 class="h5"><%= gallery_image.title %></h2>
+                        <% if gallery_image.caption.present? %>
+                        <p class="text-muted mb-2"><%= gallery_image.caption %></p>
+                        <% end %>
+                        <div class="d-flex flex-wrap gap-2">
+                            <%= link_to "Edit", edit_admin_gallery_image_path(gallery_image), class: "btn btn-sm btn-outline-primary" %>
+                            <%= button_to "Remove from Group", admin_gallery_image_path(gallery_image), method: :patch, params: { gallery_image: { title: gallery_image.title, caption: gallery_image.caption, gallery_group_id: nil } }, class: "btn btn-sm btn-outline-warning" %>
+                            <%= link_to "Delete", admin_gallery_image_path(gallery_image), data: { turbo_method: :delete, turbo_confirm: "Delete this image?" }, class: "btn btn-sm btn-outline-danger" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+        <% else %>
+        <div class="alert alert-info mb-0">
+            No images are in this group yet. Use <strong>Add Image</strong> to place one here.
+        </div>
+        <% end %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>
