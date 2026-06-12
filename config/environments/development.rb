@@ -82,4 +82,7 @@ Rails.application.configure do
       IPAddr.new("0.0.0.0/0") # Allow all IPs locally
     ]
   )
+
+  # Trust CSRF tokens from dev tunnel and localhost
+  config.action_controller.forgery_protection_origin_check = false
 end

@@ -1,5 +1,5 @@
 class Admin::SessionsController < ApplicationController
-  skip_forgery_protection only: :exit
+  skip_forgery_protection only: [:exit, :create]
   layout "application"
 
   def new
