@@ -73,4 +73,13 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Allow dev tunnels and other dynamic hosts
+  config.hosts.concat(
+    [
+      "9tkf2cls-3000.uks1.devtunnels.ms",
+      /\.devtunnels\.ms\z/,  # Allow any devtunnels.ms subdomain
+      IPAddr.new("0.0.0.0/0") # Allow all IPs locally
+    ]
+  )
 end

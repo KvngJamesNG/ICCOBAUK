@@ -31,7 +31,9 @@
     <div id="app-content">
         <%= yield %>
     </div>
+    <% unless admin_view %>
     <%= render "partials/cookie_banner" %>
+    <% end %>
 </body>
 
 </html>

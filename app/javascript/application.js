@@ -79,6 +79,8 @@ document.addEventListener("turbo:load", setupModernAnimations)
 function setupClickTracking() {
 	if (!window.iccobaukAnalyticsEnabled) return
 	if (window.iccobaukClickTrackingBound) return
+	// Don't track clicks on admin pages
+	if (window.location.pathname.startsWith("/admin")) return
 	window.iccobaukClickTrackingBound = true
 
 	document.addEventListener("click", (event) => {
