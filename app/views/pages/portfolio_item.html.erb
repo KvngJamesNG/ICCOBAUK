@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <%= render "partials/header" %>
 <!-- Page Content-->
 <section class="py-5">
@@ -49,7 +46,7 @@
                     <p class="lead fw-normal text-muted">Beyond networking, the convention featured inspiring sessions, fun activities, and opportunities to give back to the ICC community. It highlighted the enduring spirit of brotherhood and the collective commitment to supporting the growth of Immaculate Conception College and its alumni network.</p>
                     <%
 =begin%>
-                    <a class="text-decoration-none" href="#!">
+                    <a class="text-decoration-none" href="<%= portfolio_overview_path %>">
                         View more photos
                         <i class="bi-arrow-right"></i>
                     </a>
@@ -60,8 +57,4 @@
         </div>
     </div>
 </section>
-</main>
-<!-- Footer-->
 <%= render "partials/footer" %>
-
-</html>

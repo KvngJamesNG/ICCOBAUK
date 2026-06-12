@@ -1,0 +1,36 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Edit Site Settings", parent_title: "Site Settings", parent_path: admin_site_setting_path, back_path: admin_site_setting_path %>
+
+<section class="py-4">
+    <div class="container px-5" style="max-width: 760px;">
+        <%= form_with model: [ :admin, @site_setting ], url: admin_site_setting_path, method: :patch do |form| %>
+        <% if @site_setting.errors.any? %>
+        <div class="alert alert-danger">
+            <h2 class="h6 mb-2"><%= pluralize(@site_setting.errors.count, "error") %> prevented saving:</h2>
+            <ul class="mb-0">
+                <% @site_setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+        <% end %>
+
+        <div class="mb-3">
+            <%= form.label :theme_document_title, "Theme Document Title", class: "form-label" %>
+            <%= form.text_field :theme_document_title, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :theme_document, "Theme Document File", class: "form-label" %>
+            <%= form.file_field :theme_document, class: "form-control", accept: ".pdf,.doc,.docx" %>
+            <% if @site_setting.theme_document.attached? %>
+            <p class="small text-muted mt-2 mb-0">Current file: <%= @site_setting.theme_document.filename %></p>
+            <% end %>
+        </div>
+
+        <%= form.submit "Save Settings", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

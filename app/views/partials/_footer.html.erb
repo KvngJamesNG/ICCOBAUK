@@ -1,5 +1,5 @@
 <!-- Footer-->
-<footer class="bg-dark py-4 mt-auto">
+<footer class="site-footer bg-dark py-4 mt-auto">
     <div class="container px-5">
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
             <div class="col-auto">
@@ -7,11 +7,15 @@
                 <div class="small m-0 text-white">Developed by <%= link_to "LLW-CS LTD", "https://www.llw-cs.com" %></div>
             </div>
             <div class="col-auto">
-                <a class="link-light small" href="#!">Privacy</a>
+                <a class="link-light small" href="<%= info_page_path('privacy-policy') %>">Privacy Policy</a>
                 <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Terms</a>
+                <a class="link-light small" href="/data-subject-rights">Data Rights</a>
                 <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Contact</a>
+                <a class="link-light small" href="<%= faq_path %>">FAQ</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="<%= about_us_path %>">About</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="<%= contact_us_path %>">Contact</a>
             </div>
         </div>
     </div>

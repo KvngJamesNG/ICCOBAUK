@@ -1,0 +1,10 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5" style="max-width: 920px;">
+        <h1 class="fw-bolder mb-4"><%= @info_page.title %></h1>
+        <div><%= simple_format(@info_page.body) %></div>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

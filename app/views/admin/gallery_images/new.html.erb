@@ -1,0 +1,11 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5" style="max-width: 900px;">
+        <h1 class="fw-bolder mb-4">New Gallery Image</h1>
+        <%= render "form", gallery_image: @gallery_image %>
+        <%= link_to "Back", admin_gallery_images_path, class: "btn btn-link px-0 mt-3" %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

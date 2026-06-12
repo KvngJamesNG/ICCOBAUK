@@ -7,13 +7,15 @@
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder text-white mb-3">Welcome to ICCOBA UK/Europe</h1>
-                    <p class="lead fw-normal text-white-50 mb-4">12th–14th September 2025 Convention
-                        <a href="/ICCOBAUK2025Theme.pdf" target="_blank" class="btn btn-primary btn-lg fw-bold px-4 py-2 shadow-lg border-3 border-dark" style="text-decoration:none; font-size:1.25rem;">
-                            Theme: “Building a Consolidated ICCOBA Community: the role of social cohesion in community
-                            building; impact on health and economic wellbeing.”
+                    <p class="lead fw-normal text-white-50 mb-4">12th–14th September 2025 Convention</p>
+                    <% if @site_setting.theme_document.attached? %>
+                    <p class="mb-4">
+                        <a href="<%= rails_blob_path(@site_setting.theme_document, disposition: "attachment") %>" target="_blank" class="btn btn-primary btn-lg fw-bold px-4 py-2 shadow-lg border-3 border-dark" style="text-decoration:none; font-size:1.25rem;">
+                            <%= @site_setting.theme_document_title.presence || "Theme Document" %>
                             <i class="bi bi-arrow-right-circle ms-2"></i>
                         </a>
                     </p>
+                    <% end %>
                     <p class="lead fw-normal text-white-50 mb-4">Proudly Sponsored by LLW Consultancy Ltd</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
@@ -22,34 +24,32 @@
                 </div>
             </div>
             <div class="col-xl-5 col-xxl-6 text-center">
-                <div id="productCarousel" class="carousel slide my-5 rounded-3" data-bs-ride="carousel">
+                <div id="productCarousel" class="carousel slide my-5 rounded-3" data-bs-ride="carousel" data-bs-interval="3500" data-bs-pause="false" data-bs-touch="true">
+                    <% if @slider_images.any? %>
+                    <div class="carousel-indicators">
+                        <% @slider_images.each_with_index do |_, index| %>
+                        <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="<%= index %>" class="<%= "active" if index.zero? %>" <%= "aria-current=\"true\"" if index.zero? %> aria-label="Slide <%= index + 1 %>"></button>
+                        <% end %>
+                    </div>
+                    <% end %>
+
                     <div class="carousel-inner rounded-3">
-                        <div class="carousel-item active">
-                            <%= image_tag "slides/london.jpeg", class: "d-block w-100 img-fluid", alt: "Slide 1" %>
+                        <% @slider_images.each_with_index do |slider_image, index| %>
+                        <div class="carousel-item <%= "active" if index.zero? %>">
+                            <% if slider_image.link_url.present? %>
+                            <a href="<%= slider_image.link_url %>">
+                                <%= image_tag slider_image.image_variant, class: "d-block w-100 img-fluid", alt: slider_image.title %>
+                            </a>
+                            <% else %>
+                            <%= image_tag slider_image.image_variant, class: "d-block w-100 img-fluid", alt: slider_image.title %>
+                            <% end %>
                         </div>
-                        <div class="carousel-item">
-                            <%= image_tag "slides/statue.webp", class: "d-block w-100 img-fluid", alt: "Slide 2" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "slides/class91.jpg", class: "d-block w-100 img-fluid", alt: "Slide 3" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "slides/cc201830.jpg", class: "d-block w-100 img-fluid", alt: "Slide 3" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "slides/class88.png", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "gallery/2025convention/feature_bg.png", class: "d-block w-100 img-fluid", alt: "Slide 3" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "gallery/presidentworldwide2.jpg", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
-                        </div>
-                        <div class="carousel-item">
-                            <%= image_tag "slides/schoolgate.jpg", class: "d-block w-100 img-fluid", alt: "Slide 4" %>
-                        </div>
+                        <% end %>
                     </div>
 
+                    <% if @slider_images.empty? %>
+                    <div class="text-white-50 small mt-3">No slider images yet. Add them from admin.</div>
+                    <% else %>
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -58,6 +58,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -129,75 +130,35 @@
             </div>
         </div>
         <div class="row gx-5">
+            <% @featured_articles.each do |article| %>
             <div class="col-lg-4 mb-5">
                 <div class="card h-100 shadow border-0">
-                    <%= image_tag "gallery/pleaseregistersmall.jpg", class: "card-img-top", alt: "...600x350" %>
+                    <% if article.feature_image.attached? %>
+                    <%= image_tag article.feature_image, class: "card-img-top", alt: article.title %>
+                    <% end %>
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post_path %>">
-                            <h5 class="card-title mb-3">Welcome to the ICCOBAUK/EUROPE ANNUAL CONVENTION 2025!</h5>
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2"><%= article.category_label.presence || "News" %></div>
+                        <a class="text-decoration-none link-dark stretched-link" href="<%= article_path(article) %>">
+                            <h5 class="card-title mb-3"><%= article.title %></h5>
                         </a>
-                        <p class="card-text mb-0">This highly anticipated event is happening soon at the DoubleTree by Hilton Coventry, promising an unforgettable in-person experience for all attendees.</p>
+                        <p class="card-text mb-0"><%= article.summary %></p>
                     </div>
                     <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                        <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <%= image_tag "gallery/small/llw-cssmall40.png", class: "rounded-circle me-3", alt: "..." %>
-                                <div class=" small">
-                                    <div class="fw-bold">Adewale Adesina</div>
-                                    <div class="text-muted">September 05, 2025 &middot; 2 min read</div>
-                                </div>
-                            </div>
+                        <div class="small">
+                            <div class="fw-bold"><%= article.author&.name || article.author_name %></div>
+                            <div class="text-muted"><%= article.published_on %></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-5">
-                <div class="card h-100 shadow border-0">
-                    <%= image_tag "gallery/presidentworldwide2.jpg", class: "card-img-top", alt: "...600x350" %>
-                    <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post2_path %>">
-                            <h5 class="card-title mb-3">ICCOBAUK/EUROPE ANNUAL CONVENTION 2025!</h5>
-                        </a>
-                        <p class="card-text mb-0">The ICCOBA Worldwide President has made a remarkable financial contribution in support of the upcoming 2025 Convention. His generosity highlights a strong commitment to the association’s vision and to strengthening the bond among Old Boys across the globe. The donation will go a long way in ensuring a successful and memorable gathering for all members.</p>
-                    </div>
-                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                        <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <%= image_tag "gallery/small/cc20186small40.jpg", class: "rounded-circle me-3", alt: "..." %>
-                                <div class=" small">
-                                    <div class="fw-bold">Louis Ubebe</div>
-                                    <div class="text-muted">September 01, 2025 &middot; 2 min read</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <% end %>
+
+            <% if @featured_articles.empty? %>
+            <div class="col-12">
+                <p class="text-muted">No featured articles yet. Add content from admin.</p>
             </div>
-            <div class="col-lg-4 mb-5">
-                <div class="card h-100 shadow border-0">
-                    <%= image_tag "gallery/llw-cs.png", class: "card-img-top", alt: "...600x350" %>
-                    <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">Latest News</div>
-                        <a class="text-decoration-none link-dark stretched-link" href="<%= blog_post3_path %>">
-                            <h5 class="card-title mb-3">LLW Consultancy: London’s Rising Tech Power</h5>
-                        </a>
-                        <p class="card-text mb-0">LLW Consultancy Services is rapidly emerging as a tech giant in London, UK, dedicated to delivering innovative solutions for businesses across industries. Our team of skilled developers, cloud engineers, and IT strategists are committed to transforming ideas into scalable, efficient technology products that meet the demands of the modern market.</p>
-                    </div>
-                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                        <div class="d-flex align-items-end justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <%= image_tag "gallery/small/cc20186small40.jpg", class: "rounded-circle me-3", alt: "..." %>
-                                <div class=" small">
-                                    <div class="fw-bold">Louis Ubebe</div>
-                                    <div class="text-muted">August 18, 2025 &middot; 4 min read</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <% end %>
+
             <!-- Call to action-->
             <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
                 <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
@@ -216,5 +177,4 @@
             </aside>
         </div>
 </section>
-</main>
 <%= render "partials/footer" %>

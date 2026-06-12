@@ -120,6 +120,19 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#app-content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.site-footer {
+  margin-top: auto;
+  width: 100%;
+  flex-shrink: 0;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -10871,4 +10884,99 @@ html {
 .clickable-card:hover {
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
     transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-enabled .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(18px) scale(0.995);
+    transition: opacity 600ms ease, transform 600ms ease;
+    transition-delay: calc(var(--stagger-index, 0) * 45ms);
+    will-change: opacity, transform;
+  }
+
+  .js-enabled .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .card,
+  .carousel,
+  .accordion-item,
+  .btn,
+  .navbar .nav-link {
+    transition: transform 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12);
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .navbar .nav-link:hover {
+    opacity: 0.85;
+  }
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 148px;
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 148px);
+  background: #111827;
+  border-right: 1px solid #1f2937;
+  z-index: 1020;
+  overflow-y: auto;
+  color: #f9fafb;
+}
+
+.admin-sidebar-link {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #f3f4f6;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.admin-sidebar-link:hover {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+.admin-sidebar-header {
+  background: #0b1220;
+}
+
+.admin-sidebar-header .text-muted {
+  color: #d1d5db !important;
+}
+
+body.admin-layout #app-content {
+  padding-left: 0;
+}
+
+body.admin-layout #app-content > section:first-of-type {
+  padding-top: 0 !important;
+}
+
+@media (min-width: 992px) {
+  body.admin-layout #app-content > section,
+  body.admin-layout #app-content > .container,
+  body.admin-layout #app-content > .bg-light,
+  body.admin-layout #app-content > .bg-dark {
+    margin-left: 240px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  body.admin-layout #app-content {
+    padding-left: 0;
+  }
 }

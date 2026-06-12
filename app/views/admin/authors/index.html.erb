@@ -1,0 +1,39 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Authors", back_path: admin_root_path %>
+
+<section class="py-4">
+    <div class="container px-5">
+        <div class="d-flex justify-content-end mb-3">
+            <%= link_to "Create Author", new_admin_author_path, class: "btn btn-primary" %>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @authors.each do |author| %>
+                    <tr>
+                        <td><%= author.name %></td>
+                        <td><%= author.email.presence || "—" %></td>
+                        <td><%= author.role.presence || "—" %></td>
+                        <td class="text-end">
+                            <%= link_to "View", admin_author_path(author), class: "btn btn-sm btn-outline-secondary" %>
+                            <%= link_to "Edit", edit_admin_author_path(author), class: "btn btn-sm btn-outline-primary" %>
+                            <%= link_to "Delete", admin_author_path(author), data: { turbo_method: :delete, turbo_confirm: "Delete this author?" }, class: "btn btn-sm btn-outline-danger" %>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

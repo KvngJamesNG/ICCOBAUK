@@ -1,0 +1,27 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Site Settings", back_path: admin_root_path %>
+
+<section class="py-4">
+    <div class="container px-5" style="max-width: 860px;">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p><strong>Theme document title:</strong> <%= @site_setting.theme_document_title.presence || "Theme Document" %></p>
+
+                <% if @site_setting.theme_document.attached? %>
+                <p class="mb-0">
+                    <strong>Current theme document:</strong>
+                    <%= link_to @site_setting.theme_document.filename.to_s, rails_blob_path(@site_setting.theme_document, disposition: "attachment") %>
+                </p>
+                <% else %>
+                <p class="mb-0">No theme document uploaded yet.</p>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <%= link_to "Edit Settings", edit_admin_site_setting_path, class: "btn btn-primary" %>
+        </div>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

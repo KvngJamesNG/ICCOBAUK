@@ -1,4 +1,31 @@
 Rails.application.routes.draw do
+  resources :articles, only: [ :index, :show ]
+  resources :articles, only: [] do
+    post :verify_email, to: "article_interactions#verify_email"
+    post :likes, to: "article_interactions#create_like"
+    post :comments, to: "article_interactions#create_comment"
+  end
+
+  get "info/:slug", to: "info_pages#show", as: :info_page
+  get "data-subject-rights", to: redirect("/info/data-subject-rights")
+  post "track-click", to: "tracking#create_click"
+
+  namespace :admin do
+    get "login", to: "sessions#new", as: :new_session
+    post "session", to: "sessions#create", as: :session
+    delete "logout", to: "sessions#destroy", as: :logout
+    post "exit", to: "sessions#exit", as: :exit
+
+    root "dashboard#index"
+    resources :articles
+    resources :article_categories, except: [ :new, :show ]
+    resources :authors
+    resources :gallery_images
+    resources :slider_images
+    resources :info_pages
+    resource :site_setting, only: [ :show, :edit, :update ]
+  end
+
   get 'home', to: 'pages#home'
   get 'contact_us', to: 'pages#contact_us'
   get 'blog_post', to: 'pages#blog_post'

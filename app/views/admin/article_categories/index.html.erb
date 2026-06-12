@@ -1,0 +1,47 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Article Categories", back_path: admin_root_path %>
+
+<section class="py-4">
+    <div class="container px-5">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="h5 mb-3">Add Category</h2>
+                <%= form_with model: [ :admin, @article_category ], local: true do |form| %>
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-8">
+                        <%= form.label :name, class: "form-label" %>
+                        <%= form.text_field :name, class: "form-control", required: true %>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <%= form.submit "Create", class: "btn btn-primary" %>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @article_categories.each do |category| %>
+                    <tr>
+                        <td><%= category.name %></td>
+                        <td class="text-end">
+                            <%= link_to "Edit", edit_admin_article_category_path(category), class: "btn btn-sm btn-outline-primary" %>
+                            <%= link_to "Delete", admin_article_category_path(category), data: { turbo_method: :delete, turbo_confirm: "Delete this category?" }, class: "btn btn-sm btn-outline-danger" %>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

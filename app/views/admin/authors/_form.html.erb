@@ -1,0 +1,29 @@
+<%= form_with model: [ :admin, author ] do |form| %>
+<% if author.errors.any? %>
+<div style="color: #b91c1c; margin-bottom: 1rem;">
+    <h3><%= pluralize(author.errors.count, "error") %> prevented saving:</h3>
+    <ul>
+        <% author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div style="margin-bottom: 1rem;">
+    <%= form.label :name %><br>
+    <%= form.text_field :name, required: true, style: "width: 100%; max-width: 420px;" %>
+</div>
+
+<div style="margin-bottom: 1rem;">
+    <%= form.label :email %><br>
+    <%= form.email_field :email, style: "width: 100%; max-width: 420px;" %>
+</div>
+
+<div style="margin-bottom: 1rem;">
+    <%= form.label :role %><br>
+    <%= form.text_field :role, style: "width: 100%; max-width: 420px;" %>
+</div>
+
+<%= form.submit class: "btn btn-primary" %>
+<% end %>

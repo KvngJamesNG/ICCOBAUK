@@ -1,0 +1,23 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5" style="max-width: 900px;">
+        <h1 class="fw-bolder mb-2"><%= @gallery_image.title %></h1>
+        <% if @gallery_image.caption.present? %>
+        <p class="text-muted mb-4"><%= @gallery_image.caption %></p>
+        <% end %>
+
+        <% if @gallery_image.image.attached? %>
+        <%= image_tag @gallery_image.image, class: "img-fluid rounded mb-4", alt: @gallery_image.title %>
+        <% end %>
+
+        <div class="d-flex gap-2">
+            <%= link_to "Edit", edit_admin_gallery_image_path(@gallery_image), class: "btn btn-primary" %>
+            <%= link_to "Delete", admin_gallery_image_path(@gallery_image), data: { turbo_method: :delete, turbo_confirm: "Delete this image?" }, class: "btn btn-outline-danger" %>
+        </div>
+
+        <%= link_to "Back", admin_gallery_images_path, class: "btn btn-link px-0 mt-3" %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

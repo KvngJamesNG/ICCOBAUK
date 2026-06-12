@@ -1,0 +1,16 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Edit Category", parent_title: "Article Categories", parent_path: admin_article_categories_path, back_path: admin_article_categories_path %>
+
+<section class="py-4">
+    <div class="container px-5" style="max-width: 680px;">
+        <%= form_with model: [ :admin, @article_category ], local: true do |form| %>
+        <div class="mb-3">
+            <%= form.label :name, class: "form-label" %>
+            <%= form.text_field :name, class: "form-control", required: true %>
+        </div>
+        <%= form.submit "Save", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

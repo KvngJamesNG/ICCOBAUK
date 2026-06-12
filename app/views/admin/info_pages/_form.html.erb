@@ -1,0 +1,34 @@
+<%= form_with model: [ :admin, info_page ] do |form| %>
+<% if info_page.errors.any? %>
+<div class="alert alert-danger">
+    <h2 class="h6 mb-2"><%= pluralize(info_page.errors.count, "error") %> prevented saving:</h2>
+    <ul class="mb-0">
+        <% info_page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+    <%= form.label :slug, class: "form-label" %>
+    <%= form.text_field :slug, class: "form-control", placeholder: "privacy-policy" %>
+</div>
+
+<div class="mb-3">
+    <%= form.label :body, class: "form-label" %>
+    <%= form.text_area :body, rows: 16, class: "form-control" %>
+</div>
+
+<div class="form-check mb-3">
+    <%= form.check_box :published, class: "form-check-input" %>
+    <%= form.label :published, class: "form-check-label" %>
+</div>
+
+<%= form.submit class: "btn btn-primary" %>
+<% end %>

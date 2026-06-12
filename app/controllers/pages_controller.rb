@@ -1,5 +1,9 @@
 class PagesController < ApplicationController
   def home
+    @slider_images = SliderImage.active.ordered
+    @featured_articles = Article.recent.limit(3)
+    @recent_gallery_images = GalleryImage.recent.limit(8)
+    @site_setting = SiteSetting.current
   end
 
   def contact_us
@@ -18,6 +22,7 @@ class PagesController < ApplicationController
   end
 
   def blog_home
+    @articles = Article.recent
   end
 
   def about_us
@@ -36,6 +41,7 @@ class PagesController < ApplicationController
   end
 
   def portfolio_overview
+    @gallery_images = GalleryImage.recent
   end
 
   def events

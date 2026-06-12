@@ -1,0 +1,100 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5" style="max-width: 920px;">
+        <article>
+            <header class="mb-4">
+                <h1 class="fw-bolder mb-1"><%= @article.title %></h1>
+                <div class="text-muted fst-italic mb-2"><%= @article.published_on %> · <%= @article.author&.name || @article.author_name %></div>
+                <% if @article.category_label.present? %>
+                <span class="badge bg-secondary"><%= @article.category_label %></span>
+                <% end %>
+            </header>
+
+            <section class="mb-4 p-4 rounded-3 bg-light border">
+                <h2 class="h4 mb-2">Welcome 👋</h2>
+                <p class="mb-0 text-muted">Thanks for being part of our ICCOBA community. Share your reaction and join the conversation below.</p>
+            </section>
+
+            <% if @article.feature_image.attached? %>
+            <figure class="mb-4">
+                <%= image_tag @article.feature_image, class: "img-fluid rounded" %>
+            </figure>
+            <% end %>
+
+            <section class="mb-5">
+                <p class="lead"><%= @article.summary %></p>
+                <%= simple_format(@article.body, class: "fs-5") %>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4 mb-3">Engagement</h2>
+                <p class="text-muted mb-1">👍 <%= @reaction_counts["up"].to_i %> &nbsp; 👎 <%= @reaction_counts["down"].to_i %> &nbsp; ❤️ <%= @reaction_counts["love"].to_i %></p>
+                <p class="text-muted">Reactions: <%= @likes_count %></p>
+
+                <div class="p-3 rounded-3 border <%= @engagement_unlocked ? "bg-white" : "bg-light text-muted opacity-75" %>">
+                    <% if @engagement_unlocked %>
+                    <p class="small text-muted">Verified as <strong><%= @verified_name %></strong></p>
+
+                    <%= form_with url: article_likes_path(@article), method: :post, class: "mb-3" do %>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" name="reaction" value="up" class="btn btn-outline-primary">👍 Like</button>
+                        <button type="submit" name="reaction" value="down" class="btn btn-outline-secondary">👎 Not for me</button>
+                        <button type="submit" name="reaction" value="love" class="btn btn-outline-danger">❤️ Love</button>
+                    </div>
+                    <% end %>
+
+                    <%= form_with url: article_comments_path(@article), method: :post, class: "mb-4" do %>
+                    <div class="mb-2">
+                        <%= text_area_tag :content, nil, rows: 4, class: "form-control", placeholder: "Write your comment", required: true %>
+                    </div>
+                    <%= submit_tag "Post Comment", class: "btn btn-primary" %>
+                    <% end %>
+                    <% else %>
+                    <div class="card bg-light border-0 mb-2">
+                        <div class="card-body">
+                            <p class="mb-2 fw-semibold">Engagement locked until verification.</p>
+                            <p class="small mb-3">Enter your name and email to unlock reactions and comments for this post.</p>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" class="btn btn-outline-primary" disabled>👍 Like</button>
+                                <button type="button" class="btn btn-outline-secondary" disabled>👎 Not for me</button>
+                                <button type="button" class="btn btn-outline-danger" disabled>❤️ Love</button>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="4" placeholder="Commenting unlocks after verification" disabled></textarea>
+                            </div>
+                            <%= form_with url: article_verify_email_path(@article), method: :post do %>
+                            <div class="mb-2">
+                                <%= text_field_tag :name, nil, class: "form-control", placeholder: "Your name", required: true %>
+                            </div>
+                            <div class="input-group">
+                                <%= email_field_tag :email, nil, class: "form-control", placeholder: "you@example.com", required: true %>
+                                <%= submit_tag "Verify Email", class: "btn btn-primary" %>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+
+                <h3 class="h5 mb-3">Comments</h3>
+                <% if @comments.any? %>
+                <% @comments.each do |comment| %>
+                <div class="border rounded p-3 mb-3">
+                    <div class="small text-muted mb-2">
+                        <%= comment.verified_name.presence || "Verified member" %> · <%= l(comment.created_at, format: :short) %>
+                    </div>
+                    <div class="mb-0"><%= simple_format(comment.content) %></div>
+                </div>
+                <% end %>
+                <% else %>
+                <p class="text-muted">No comments yet.</p>
+                <% end %>
+            </section>
+        </article>
+
+        <%= link_to "Back to Articles", articles_path, class: "btn btn-link px-0" %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

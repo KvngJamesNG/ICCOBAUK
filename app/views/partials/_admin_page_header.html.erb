@@ -1,0 +1,10 @@
+<section class="pt-4 pb-2">
+    <div class="container px-5">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <h1 class="h3 fw-bolder mb-0"><%= local_assigns[:title] %></h1>
+            <% if local_assigns[:parent_title].present? %>
+            <span class="small text-muted text-uppercase"><%= local_assigns[:parent_title] %></span>
+            <% end %>
+        </div>
+    </div>
+</section>

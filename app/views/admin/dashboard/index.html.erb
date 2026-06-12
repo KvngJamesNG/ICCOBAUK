@@ -1,0 +1,179 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5">
+        <h1 class="fw-bolder mb-4">Admin Dashboard</h1>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Articles</h2>
+                        <p class="text-muted mb-3"><%= @articles_count %> total</p>
+                        <%= link_to "Manage Articles", admin_articles_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Gallery Images</h2>
+                        <p class="text-muted mb-3"><%= @gallery_images_count %> total</p>
+                        <%= link_to "Manage Gallery", admin_gallery_images_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Homepage Sliders</h2>
+                        <p class="text-muted mb-3"><%= @slider_images_count %> total</p>
+                        <%= link_to "Manage Sliders", admin_slider_images_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Info Pages</h2>
+                        <p class="text-muted mb-3"><%= @info_pages_count %> total</p>
+                        <%= link_to "Manage Info Pages", admin_info_pages_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Authors</h2>
+                        <p class="text-muted mb-3"><%= @authors_count %> total</p>
+                        <%= link_to "Manage Authors", admin_authors_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Categories</h2>
+                        <p class="text-muted mb-3"><%= @categories_count %> total</p>
+                        <%= link_to "Manage Categories", admin_article_categories_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h2 class="h5">Theme Document</h2>
+                        <p class="text-muted mb-3">Upload and update website theme file</p>
+                        <%= link_to "Manage Site Settings", admin_site_setting_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="h4 mb-3">Traffic Analytics (Last 30 Days)</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1">Visits</p>
+                        <p class="h3 mb-0"><%= @visits_count %></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1">Clicks</p>
+                        <p class="h3 mb-0"><%= @clicks_count %></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Device Breakdown</h3>
+                        <% if @device_breakdown.any? %>
+                        <ul class="mb-0">
+                            <% @device_breakdown.each do |device, count| %>
+                            <li><%= device.presence || "unknown" %>: <%= count %></li>
+                            <% end %>
+                        </ul>
+                        <% else %>
+                        <p class="text-muted mb-0">No visit data yet.</p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Top Pages</h3>
+                        <% if @top_paths.any? %>
+                        <ul class="mb-0">
+                            <% @top_paths.each do |path, count| %>
+                            <li><%= path %>: <%= count %></li>
+                            <% end %>
+                        </ul>
+                        <% else %>
+                        <p class="text-muted mb-0">No page data yet.</p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Where Visitors Came From</h3>
+                        <% if @top_referrers.any? %>
+                        <ul class="mb-0">
+                            <% @top_referrers.each do |referrer, count| %>
+                            <li><%= referrer %>: <%= count %></li>
+                            <% end %>
+                        </ul>
+                        <% else %>
+                        <p class="text-muted mb-0">No referrer data yet.</p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Verified Users for Reactions/Comments (<%= @verified_users_count %>)</h3>
+                        <% if @latest_verified_users.any? %>
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Last Verified</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @latest_verified_users.each do |user| %>
+                                    <tr>
+                                        <td><%= user.name %></td>
+                                        <td><%= user.email %></td>
+                                        <td><%= l(user.updated_at, format: :short) %></td>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% else %>
+                        <p class="text-muted mb-0">No verified users yet.</p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <%= link_to "View Public Blog", articles_path, class: "btn btn-outline-secondary" %>
+            <%= link_to "View Public Gallery", portfolio_overview_path, class: "btn btn-outline-secondary" %>
+        </div>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

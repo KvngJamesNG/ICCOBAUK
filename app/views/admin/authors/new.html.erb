@@ -1,0 +1,10 @@
+<%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Create Author", parent_title: "Authors", parent_path: admin_authors_path, back_path: admin_authors_path %>
+
+<section class="py-4">
+    <div class="container px-5" style="max-width: 760px;">
+        <%= render "form", author: @author %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

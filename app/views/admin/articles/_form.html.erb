@@ -1,0 +1,55 @@
+<%= form_with model: [ :admin, article ] do |form| %>
+<% if article.errors.any? %>
+<div class="alert alert-danger">
+    <h2 class="h6 mb-2"><%= pluralize(article.errors.count, "error") %> prevented saving:</h2>
+    <ul class="mb-0">
+        <% article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+    <%= form.label :summary, class: "form-label" %>
+    <%= form.text_area :summary, rows: 3, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+    <%= form.label :body, class: "form-label" %>
+    <%= form.text_area :body, rows: 10, class: "form-control" %>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <%= form.label :author_id, "Article Owner", class: "form-label" %>
+        <%= form.collection_select :author_id, @authors, :id, :name, { include_blank: "Select an author" }, class: "form-select" %>
+        <small class="text-muted">Create new authors from <%= link_to "Authors", admin_authors_path %>.</small>
+    </div>
+    <div class="col-md-4">
+        <%= form.label :article_category_id, "Category", class: "form-label" %>
+        <%= form.collection_select :article_category_id, @categories, :id, :name, { include_blank: "Select category" }, class: "form-select" %>
+        <small class="text-muted">Manage from <%= link_to "Categories", admin_article_categories_path %>.</small>
+    </div>
+    <div class="col-md-4">
+        <%= form.label :author_name, class: "form-label" %>
+        <%= form.text_field :author_name, class: "form-control", placeholder: "Fallback text if owner not selected" %>
+    </div>
+    <div class="col-md-12">
+        <%= form.label :published_on, class: "form-label" %>
+        <%= form.date_field :published_on, class: "form-control" %>
+    </div>
+</div>
+
+<div class="my-3">
+    <%= form.label :feature_image, class: "form-label" %>
+    <%= form.file_field :feature_image, class: "form-control", accept: "image/*" %>
+</div>
+
+<%= form.submit class: "btn btn-primary" %>
+<% end %>

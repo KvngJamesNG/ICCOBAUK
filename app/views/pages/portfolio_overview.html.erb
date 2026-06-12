@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <%= render "partials/header" %>
 <!-- Page Content-->
 <section class="py-5">
@@ -9,39 +6,28 @@
             <h1 class="fw-bolder">ICCOBA UK/Europe Gallery</h1>
             <p class="lead fw-normal text-muted mb-0">Our Time Capsule</p>
         </div>
-        <div class="row gx-5">
-            <div class="col-lg-6">
-                <div class="position-relative mb-5">
-                    <%= image_tag "gallery/presidentworldwide.jpg", class: "img-fluid rounded-3 mb-3", alt: "...600X400" %>
 
-                    <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">ICCOBA President Worldwide</a>
+        <div class="row g-4">
+            <% @gallery_images.each do |gallery_image| %>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow border-0">
+                    <% if gallery_image.image.attached? %>
+                    <%= image_tag gallery_image.image, class: "card-img-top", alt: gallery_image.title %>
+                    <% end %>
+                    <div class="card-body">
+                        <h2 class="h5 card-title"><%= gallery_image.title %></h2>
+                        <% if gallery_image.caption.present? %>
+                        <p class="card-text text-muted mb-0"><%= gallery_image.caption %></p>
+                        <% end %>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="position-relative mb-5">
-                    <%= image_tag "gallery/p&vp.jpg", class: "img-fluid rounded-3 mb-3", alt: "...600X400" %>
-                    <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Dr J. Itotoh & Mr. John (Vice Principal & Principal)</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="position-relative mb-5 mb-lg-0">
-                    <%= image_tag "gallery/Quimby.png", class: "img-fluid rounded-3 mb-3", alt: "...600X400" %>
-                    <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Quimby Eyide - Chairman 1994 set</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <a href="<%= portfolio_item_path %>" class="position-relative d-block text-decoration-none link-dark clickable-card">
-                    <%= image_tag "gallery/2018convention/cc20181.jpg", class: "img-fluid rounded-3 mb-3", alt: "...600x400" %>
-                    <span class="h3 fw-bolder">2018 Convention in Coventry</span>
-                </a>
-            </div>
-            <div class="col-lg-6 mt-5">
-                <a href="<%= portfolio_item2_path %>" class="position-relative d-block text-decoration-none link-dark clickable-card">
-                    <%= image_tag "gallery/2018convention/cc201811.jpg", class: "img-fluid rounded-3 mb-3", alt: "...600x400" %>
-                    <span class="h3 fw-bolder mb-3">2025 Convention in Coventry</span>
-                </a>
-            </div>
+            <% end %>
         </div>
+
+        <% if @gallery_images.empty? %>
+        <p class="text-muted mt-4">No gallery images uploaded yet.</p>
+        <% end %>
     </div>
 </section>
 <section class=" py-5 bg-light">
@@ -50,8 +36,4 @@
         <a class="btn btn-lg btn-primary" href="https://www.llw-cs.com">Contact us</a>
     </div>
 </section>
-</main>
-<!-- Footer-->
 <%= render "partials/footer" %>
-
-</html>

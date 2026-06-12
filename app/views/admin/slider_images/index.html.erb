@@ -1,0 +1,45 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+    <div class="container px-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="fw-bolder mb-0">Manage Homepage Sliders</h1>
+            <%= link_to "New Slider Image", new_admin_slider_image_path, class: "btn btn-primary" %>
+        </div>
+
+        <% if @slider_images.any? %>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @slider_images.each do |slider_image| %>
+                    <tr>
+                        <td><%= slider_image.title %></td>
+                        <td><%= slider_image.position %></td>
+                        <td><%= slider_image.active ? "Active" : "Hidden" %></td>
+                        <td class="text-end">
+                            <%= link_to "View", admin_slider_image_path(slider_image), class: "btn btn-sm btn-outline-secondary" %>
+                            <%= link_to "Edit", edit_admin_slider_image_path(slider_image), class: "btn btn-sm btn-outline-primary" %>
+                            <%= link_to "Delete", admin_slider_image_path(slider_image), data: { turbo_method: :delete, turbo_confirm: "Delete this slider image?" }, class: "btn btn-sm btn-outline-danger" %>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <% else %>
+        <p class="text-muted">No slider images yet.</p>
+        <% end %>
+
+        <%= link_to "Back to Admin", admin_root_path, class: "btn btn-link px-0" %>
+    </div>
+</section>
+
+<%= render "partials/footer" %>

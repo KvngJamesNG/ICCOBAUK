@@ -1,0 +1,46 @@
+<%= form_with model: [ :admin, slider_image ] do |form| %>
+<% if slider_image.errors.any? %>
+<div class="alert alert-danger">
+    <h2 class="h6 mb-2"><%= pluralize(slider_image.errors.count, "error") %> prevented saving:</h2>
+    <ul class="mb-0">
+        <% slider_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+    <%= form.label :caption, class: "form-label" %>
+    <%= form.text_area :caption, rows: 3, class: "form-control" %>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <%= form.label :link_url, class: "form-label" %>
+        <%= form.url_field :link_url, class: "form-control", placeholder: "https://example.com" %>
+    </div>
+    <div class="col-md-3">
+        <%= form.label :position, class: "form-label" %>
+        <%= form.number_field :position, class: "form-control" %>
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+        <div class="form-check mt-4">
+            <%= form.check_box :active, class: "form-check-input" %>
+            <%= form.label :active, class: "form-check-label" %>
+        </div>
+    </div>
+</div>
+
+<div class="my-3">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control", accept: "image/*" %>
+</div>
+
+<%= form.submit class: "btn btn-primary" %>
+<% end %>
