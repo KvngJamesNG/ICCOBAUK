@@ -38,10 +38,10 @@
                         <div class="carousel-item <%= "active" if index.zero? %>">
                             <% if slider_image.link_url.present? %>
                             <a href="<%= slider_image.link_url %>">
-                                <%= image_tag slider_image.image_variant, class: "d-block w-100 img-fluid", alt: slider_image.title %>
+                                <%= image_tag slider_image.image, class: "d-block w-100", alt: slider_image.title, style: "height: 360px; object-fit: contain; background: #111;" %>
                             </a>
                             <% else %>
-                            <%= image_tag slider_image.image_variant, class: "d-block w-100 img-fluid", alt: slider_image.title %>
+                            <%= image_tag slider_image.image, class: "d-block w-100", alt: slider_image.title, style: "height: 360px; object-fit: contain; background: #111;" %>
                             <% end %>
                         </div>
                         <% end %>

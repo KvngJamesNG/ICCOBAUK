@@ -1,30 +1,38 @@
-<%= render "partials/header" %>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div style="width: 100%; max-width: 460px;" class="px-3">
 
-<section class="py-5">
-    <div class="container px-5" style="max-width: 520px;">
+        <div class="text-center mb-4">
+            <%= image_tag "logo/favicon.ico", alt: "ICCOBA UK", style: "height: 120px; width: auto;" %>
+            <h1 class="h4 fw-bold mt-3 mb-0">ICCOBA UK Admin</h1>
+            <p class="text-muted small mt-1">Sign in to manage your website</p>
+        </div>
+
         <div class="card border-0 shadow-sm">
-            <div class="card-body p-4 p-md-5">
-                <h1 class="h3 fw-bolder mb-3">Admin Sign In</h1>
-                <p class="text-muted mb-4">Use your admin credentials to access the dashboard.</p>
+            <div class="card-body p-4">
+                <% if flash[:alert] %>
+                <div class="alert alert-danger py-2 small"><%= flash[:alert] %></div>
+                <% end %>
 
                 <%= form_with url: admin_session_path, method: :post, local: true do %>
                 <div class="mb-3">
-                    <%= label_tag :username, "Username", class: "form-label" %>
-                    <%= text_field_tag :username, params[:username], class: "form-control", required: true, autofocus: true %>
+                    <%= label_tag :username, "Username", class: "form-label fw-semibold" %>
+                    <%= text_field_tag :username, params[:username], class: "form-control", required: true, autofocus: true, placeholder: "Enter username" %>
                 </div>
 
                 <div class="mb-4">
-                    <%= label_tag :password, "Password", class: "form-label" %>
-                    <%= password_field_tag :password, nil, class: "form-control", required: true %>
+                    <%= label_tag :password, "Password", class: "form-label fw-semibold" %>
+                    <%= password_field_tag :password, nil, class: "form-control", required: true, placeholder: "Enter password" %>
                 </div>
 
                 <div class="d-grid">
-                    <%= submit_tag "Sign In", class: "btn btn-primary btn-lg" %>
+                    <%= submit_tag "Sign In", class: "btn btn-dark btn-lg w-100" %>
                 </div>
                 <% end %>
             </div>
         </div>
-    </div>
-</section>
 
-<%= render "partials/footer" %>
+        <p class="text-center text-muted small mt-4">
+            <%= link_to "← Back to website", home_path, class: "text-muted" %>
+        </p>
+    </div>
+</div>

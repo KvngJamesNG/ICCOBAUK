@@ -39,7 +39,8 @@
     </div>
 </nav>
 
-<nav class="bg-light border-bottom">
+<% hide_breadcrumb = !admin_view && (request.path == "/" || request.path == "/home") %>
+<nav class="bg-light border-bottom<%= " d-none" if hide_breadcrumb %>">
     <div class="container px-3 px-md-5 py-2 d-flex align-items-center justify-content-between flex-wrap gap-2">
         <ol class="breadcrumb mb-0 small">
             <% if admin_view %>
