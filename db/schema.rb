@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_12_063100) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_23_000300) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -161,12 +161,39 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_12_063100) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "temp_writer_accounts", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "password_salt", null: false
+    t.string "password_digest", null: false
+    t.datetime "expires_at", null: false
+    t.string "created_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "email_ciphertext"
+    t.string "email_digest"
+    t.index ["email_digest"], name: "index_temp_writer_accounts_on_email_digest", unique: true
+    t.index ["expires_at"], name: "index_temp_writer_accounts_on_expires_at"
+    t.index ["username"], name: "index_temp_writer_accounts_on_username", unique: true
+  end
+
   create_table "verified_users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_verified_users_on_email", unique: true
+  end
+
+  create_table "writer_email_archives", force: :cascade do |t|
+    t.text "email_ciphertext", null: false
+    t.string "email_digest", null: false
+    t.string "last_username"
+    t.datetime "last_expires_at"
+    t.datetime "archived_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archived_at"], name: "index_writer_email_archives_on_archived_at"
+    t.index ["email_digest"], name: "index_writer_email_archives_on_email_digest", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

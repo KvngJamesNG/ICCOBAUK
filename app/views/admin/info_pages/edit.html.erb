@@ -1,10 +1,10 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Edit Info Page", parent_title: "Info Pages", parent_path: admin_info_pages_path, back_path: admin_info_page_path(@info_page) %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5" style="max-width: 900px;">
-        <h1 class="fw-bolder mb-4">Edit Info Page</h1>
         <%= render "form", info_page: @info_page %>
-        <%= link_to "Back", admin_info_pages_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Page", admin_info_page_path(@info_page), class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

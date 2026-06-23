@@ -1,9 +1,12 @@
 <% admin_logged_in = session[:admin_authenticated] == true %>
+<% admin_role = session[:admin_role].to_s %>
+<% writer_mode = admin_role == "writer" %>
 <% admin_view = controller_path.start_with?("admin/") && admin_logged_in %>
 <% path_segments = request.path.split("/").reject(&:blank?) %>
 <% breadcrumb_segments = admin_view ? path_segments.drop(1) : path_segments %>
 <% default_back_path = request.referer.presence || (admin_view ? admin_root_path : home_path) %>
 
+<div id="admin-top-chrome">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-3 px-md-5">
         <a class="navbar-brand site-brand d-flex align-items-center" href="<%= admin_view ? admin_root_path : home_path %>">
@@ -48,50 +51,56 @@
             <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
             <% end %>
 
+            <% path_prefix = admin_view ? "/admin" : "" %>
             <% path_accumulator = "" %>
-            <% breadcrumb_segments.each_with_index do |segment, index| %>
+            <% breadcrumb_segments.each do |segment| %>
             <% path_accumulator += "/#{segment}" %>
             <% label = segment.tr("-", " ").tr("_", " ").capitalize %>
-            <% if index == breadcrumb_segments.length - 1 %>
-            <li class="breadcrumb-item active" aria-current="page"><%= label %></li>
-            <% else %>
-            <li class="breadcrumb-item"><a href="<%= path_accumulator %>"><%= label %></a></li>
-            <% end %>
+            <li class="breadcrumb-item"><a href="<%= path_prefix + path_accumulator %>"><%= label %></a></li>
             <% end %>
         </ol>
         <a href="<%= default_back_path %>" class="btn btn-outline-secondary btn-sm">← Back</a>
     </div>
 </nav>
+</div>
 
 <% if admin_view %>
 <aside class="admin-sidebar d-none d-lg-flex flex-column">
     <div class="admin-sidebar-header px-3 py-3 border-bottom">
-        <h2 class="h6 mb-0 text-uppercase text-muted">Admin Panel</h2>
+        <h2 class="h6 mb-0 text-uppercase text-muted"><%= writer_mode ? "Writer Panel" : "Admin Panel" %></h2>
     </div>
     <div class="admin-sidebar-body p-2">
-        <a class="admin-sidebar-link" href="<%= admin_root_path %>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-        <a class="admin-sidebar-link" href="<%= admin_articles_path %>"><i class="bi bi-file-earmark-text me-2"></i>Articles</a>
-        <a class="admin-sidebar-link" href="<%= admin_authors_path %>"><i class="bi bi-people me-2"></i>Authors</a>
-        <a class="admin-sidebar-link" href="<%= admin_article_categories_path %>"><i class="bi bi-tags me-2"></i>Categories</a>
-        <a class="admin-sidebar-link" href="<%= admin_gallery_images_path %>"><i class="bi bi-images me-2"></i>Gallery</a>
-        <a class="admin-sidebar-link" href="<%= admin_gallery_groups_path %>"><i class="bi bi-collection me-2"></i>Gallery Groups</a>
-        <a class="admin-sidebar-link" href="<%= admin_slider_images_path %>"><i class="bi bi-sliders me-2"></i>Sliders</a>
-        <a class="admin-sidebar-link" href="<%= admin_info_pages_path %>"><i class="bi bi-journal-richtext me-2"></i>Pages</a>
-        <a class="admin-sidebar-link" href="<%= admin_site_setting_path %>"><i class="bi bi-gear me-2"></i>Settings</a>
-        <a class="admin-sidebar-link" href="<%= articles_path %>"><i class="bi bi-globe me-2"></i>View Public Site</a>
+        <a class="<%= admin_sidebar_link_class(admin_articles_path, request.path) %>" href="<%= admin_articles_path %>"><i class="bi bi-file-earmark-text me-2"></i>Articles</a>
+        <% unless writer_mode %>
+        <a class="<%= admin_sidebar_link_class(admin_root_path, request.path) %>" href="<%= admin_root_path %>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+        <a class="<%= admin_sidebar_link_class(admin_authors_path, request.path) %>" href="<%= admin_authors_path %>"><i class="bi bi-people me-2"></i>Authors</a>
+        <a class="<%= admin_sidebar_link_class(admin_article_categories_path, request.path) %>" href="<%= admin_article_categories_path %>"><i class="bi bi-tags me-2"></i>Categories</a>
+        <a class="<%= admin_sidebar_link_class(admin_gallery_images_path, request.path) %>" href="<%= admin_gallery_images_path %>"><i class="bi bi-images me-2"></i>Gallery</a>
+        <a class="<%= admin_sidebar_link_class(admin_gallery_groups_path, request.path) %>" href="<%= admin_gallery_groups_path %>"><i class="bi bi-collection me-2"></i>Gallery Groups</a>
+        <a class="<%= admin_sidebar_link_class(admin_slider_images_path, request.path) %>" href="<%= admin_slider_images_path %>"><i class="bi bi-sliders me-2"></i>Sliders</a>
+        <a class="<%= admin_sidebar_link_class(admin_info_pages_path, request.path) %>" href="<%= admin_info_pages_path %>"><i class="bi bi-journal-richtext me-2"></i>Pages</a>
+        <a class="<%= admin_sidebar_link_class(admin_temp_writer_accounts_path, request.path) %>" href="<%= admin_temp_writer_accounts_path %>"><i class="bi bi-person-plus me-2"></i>Temp Writers</a>
+        <a class="<%= admin_sidebar_link_class(admin_site_setting_path, request.path) %>" href="<%= admin_site_setting_path %>"><i class="bi bi-gear me-2"></i>Settings</a>
+        <a class="admin-sidebar-link" href="<%= articles_path %>" target="_blank"><i class="bi bi-globe me-2"></i>View Public Site</a>
+        <% else %>
+        <a class="admin-sidebar-link" href="<%= articles_path %>" target="_blank"><i class="bi bi-globe me-2"></i>View Public Site</a>
+        <% end %>
     </div>
 </aside>
 
 <div class="d-lg-none bg-white border-bottom">
     <div class="container px-3 py-2 d-flex gap-2 overflow-auto">
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_root_path %>">Dashboard</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_articles_path %>">Articles</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_authors_path %>">Authors</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_article_categories_path %>">Categories</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_gallery_images_path %>">Gallery</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_gallery_groups_path %>">Gallery Groups</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_slider_images_path %>">Sliders</a>
-        <a class="btn btn-sm btn-outline-secondary" href="<%= admin_info_pages_path %>">Pages</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_articles_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_articles_path %>">Articles</a>
+        <% unless writer_mode %>
+        <a class="btn btn-sm <%= request.path == admin_root_path ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_root_path %>">Dashboard</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_authors_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_authors_path %>">Authors</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_article_categories_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_article_categories_path %>">Categories</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_gallery_images_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_gallery_images_path %>">Gallery</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_gallery_groups_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_gallery_groups_path %>">Gallery Groups</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_slider_images_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_slider_images_path %>">Sliders</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_info_pages_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_info_pages_path %>">Pages</a>
+        <a class="btn btn-sm <%= request.path.start_with?(admin_temp_writer_accounts_path) ? "btn-secondary" : "btn-outline-secondary" %>" href="<%= admin_temp_writer_accounts_path %>">Temp Writers</a>
+        <% end %>
     </div>
 </div>
 <% end %>

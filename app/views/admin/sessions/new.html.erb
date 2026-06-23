@@ -4,7 +4,7 @@
         <div class="text-center mb-4">
             <%= image_tag "logo/favicon.ico", alt: "ICCOBA UK", style: "height: 120px; width: auto;" %>
             <h1 class="h4 fw-bold mt-3 mb-0">ICCOBA UK Admin</h1>
-            <p class="text-muted small mt-1">Sign in to manage your website</p>
+            <p class="text-muted small mt-1">Sign in as admin or temporary writer</p>
         </div>
 
         <div class="card border-0 shadow-sm">
@@ -15,8 +15,8 @@
 
                 <%= form_with url: admin_session_path, method: :post, local: true do %>
                 <div class="mb-3">
-                    <%= label_tag :username, "Username", class: "form-label fw-semibold" %>
-                    <%= text_field_tag :username, params[:username], class: "form-control", required: true, autofocus: true, placeholder: "Enter username" %>
+                    <%= label_tag :username, "Username or Email", class: "form-label fw-semibold" %>
+                    <%= text_field_tag :username, params[:username], class: "form-control", required: true, autofocus: true, placeholder: "Enter username or legitimate email" %>
                 </div>
 
                 <div class="mb-4">

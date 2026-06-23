@@ -1,9 +1,9 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Homepage Sliders" %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="fw-bolder mb-0">Manage Homepage Sliders</h1>
+        <div class="d-flex justify-content-end mb-3">
             <%= link_to "New Slider Image", new_admin_slider_image_path, class: "btn btn-primary" %>
         </div>
 
@@ -23,7 +23,7 @@
                     <tr>
                         <td><%= slider_image.title %></td>
                         <td><%= slider_image.position %></td>
-                        <td><%= slider_image.active ? "Active" : "Hidden" %></td>
+                        <td><%= slider_image.active ? '<span class="badge text-bg-success">Active</span>'.html_safe : '<span class="badge text-bg-secondary">Hidden</span>'.html_safe %></td>
                         <td class="text-end">
                             <%= link_to "View", admin_slider_image_path(slider_image), class: "btn btn-sm btn-outline-secondary" %>
                             <%= link_to "Edit", edit_admin_slider_image_path(slider_image), class: "btn btn-sm btn-outline-primary" %>
@@ -38,7 +38,7 @@
         <p class="text-muted">No slider images yet.</p>
         <% end %>
 
-        <%= link_to "Back to Admin", admin_root_path, class: "btn btn-link px-0" %>
+        <%= link_to "Back to Dashboard", admin_root_path, class: "btn btn-link px-0" %>
     </div>
 </section>
 

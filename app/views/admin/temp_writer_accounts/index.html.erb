@@ -1,0 +1,102 @@
+<%= render "partials/header" %>
+
+<section class="py-5">
+  <div class="container px-5" style="max-width: 920px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bolder mb-0">Temporary Writer Accounts</h1>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Create Temporary Writer</h2>
+        <p class="text-muted small mb-4">Every account created here expires automatically after 24 hours and can only access article writing screens.</p>
+
+<%= form_with model: @temp_writer_account, url: admin_temp_writer_accounts_path, local: true do |f| %>
+          <% if @temp_writer_account.errors.any? %>
+            <div class="alert alert-danger">
+              <p class="fw-semibold mb-2">Please fix the following:</p>
+              <ul class="mb-0">
+                <% @temp_writer_account.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <%= f.label :username, class: "form-label fw-semibold" %>
+              <%= f.text_field :username, class: "form-control", required: false, placeholder: "Optional: auto-generated from email if blank" %>
+            </div>
+            <div class="col-md-6">
+              <%= f.label :email, "Legitimate Email", class: "form-label fw-semibold" %>
+              <%= f.email_field :email, class: "form-control", required: true, placeholder: "writer@example.com" %>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <%= f.submit "Create 24-hour writer account", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+        <% if flash[:generated_writer_credentials].present? %>
+          <% creds = flash[:generated_writer_credentials].to_h.symbolize_keys %>
+          <div class="alert alert-success mt-4 mb-0">
+            <p class="fw-semibold mb-2">Writer account created. Copy these credentials — they will not be shown again.</p>
+            <p class="mb-1"><strong>Username:</strong> <span id="cred-username"><%= creds[:username] %></span></p>
+            <p class="mb-1"><strong>Email:</strong> <span id="cred-email"><%= creds[:email] %></span></p>
+            <p class="mb-1"><strong>Password:</strong> <code id="cred-password" class="user-select-all fw-bold"><%= creds[:password] %></code></p>
+            <p class="mb-3"><strong>Expires:</strong> <%= l(Time.zone.parse(creds[:expires_at].to_s), format: :short) rescue creds[:expires_at] %></p>
+            <button type="button" class="btn btn-sm btn-outline-dark" onclick="
+              const text = 'Username: ' + document.getElementById('cred-username').innerText + '\nEmail: ' + document.getElementById('cred-email').innerText + '\nPassword: ' + document.getElementById('cred-password').innerText;
+              navigator.clipboard.writeText(text).then(() => { this.textContent = '✓ Copied!'; setTimeout(() => this.textContent = 'Copy credentials', 2000); });
+            ">Copy credentials</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Existing Temporary Writers</h2>
+
+        <% if @active_accounts.any? %>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Created By</th>
+                  <th>Expires At</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @active_accounts.each do |account| %>
+                  <tr>
+                    <td><%= account.username %></td>
+                    <td class="text-muted small"><%= account.email %></td>
+                    <td><%= account.created_by.presence || "-" %></td>
+                    <td><%= l(account.expires_at, format: :short) %></td>
+                    <td><span class="badge text-bg-success">Active</span></td>
+                    <td class="text-end">
+                      <%= link_to "Delete", admin_temp_writer_account_path(account), data: { turbo_method: :delete, turbo_confirm: "Delete this temporary writer account?" }, class: "btn btn-sm btn-outline-danger" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <p class="text-muted mb-0">No temporary writer accounts yet.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <%= link_to "Back to Admin", admin_root_path, class: "btn btn-link px-0 mt-3" %>
+  </div>
+</section>
+
+<%= render "partials/footer" %>

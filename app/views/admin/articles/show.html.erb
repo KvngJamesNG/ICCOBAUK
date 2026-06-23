@@ -1,8 +1,8 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: @article.title, parent_title: "Articles", parent_path: admin_articles_path, back_path: admin_articles_path %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5" style="max-width: 900px;">
-        <h1 class="fw-bolder mb-2"><%= @article.title %></h1>
         <p class="text-muted mb-4"><%= @article.author_name %> · <%= @article.published_on %></p>
 
         <% if @article.feature_image.attached? %>
@@ -16,10 +16,12 @@
 
         <div class="mt-4 d-flex gap-2">
             <%= link_to "Edit", edit_admin_article_path(@article), class: "btn btn-primary" %>
+            <% unless writer_signed_in? %>
             <%= link_to "Delete", admin_article_path(@article), data: { turbo_method: :delete, turbo_confirm: "Delete this article?" }, class: "btn btn-outline-danger" %>
+            <% end %>
         </div>
 
-        <%= link_to "Back", admin_articles_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Articles", admin_articles_path, class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

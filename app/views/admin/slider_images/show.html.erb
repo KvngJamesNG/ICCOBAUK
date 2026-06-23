@@ -1,9 +1,9 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: @slider_image.title, parent_title: "Sliders", parent_path: admin_slider_images_path, back_path: admin_slider_images_path %>
 
-<section class="py-5">
-    <div class="container px-5" style="max-width: 900px;">
-        <h1 class="fw-bolder mb-2"><%= @slider_image.title %></h1>
-        <p class="text-muted mb-2">Position: <%= @slider_image.position %> · <%= @slider_image.active ? "Active" : "Hidden" %></p>
+<section class="py-4">
+    <div class="container px_5" style="max-width: 900px;">
+        <p class="text-muted mb-2">Position: <%= @slider_image.position %> · <%= @slider_image.active ? '<span class="badge text-bg-success">Active</span>'.html_safe : '<span class="badge text-bg-secondary">Hidden</span>'.html_safe %></p>
 
         <% if @slider_image.caption.present? %>
         <p class="text-muted mb-4"><%= @slider_image.caption %></p>
@@ -18,7 +18,7 @@
             <%= link_to "Delete", admin_slider_image_path(@slider_image), data: { turbo_method: :delete, turbo_confirm: "Delete this slider image?" }, class: "btn btn-outline-danger" %>
         </div>
 
-        <%= link_to "Back", admin_slider_images_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Sliders", admin_slider_images_path, class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

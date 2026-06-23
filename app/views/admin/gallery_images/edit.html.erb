@@ -1,10 +1,10 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: "Edit Gallery Image", parent_title: "Gallery Images", parent_path: admin_gallery_images_path, back_path: admin_gallery_image_path(@gallery_image) %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5" style="max-width: 900px;">
-        <h1 class="fw-bolder mb-4">Edit Gallery Image</h1>
         <%= render "form", gallery_image: @gallery_image %>
-        <%= link_to "Back", admin_gallery_images_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Image", admin_gallery_image_path(@gallery_image), class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

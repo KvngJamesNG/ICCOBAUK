@@ -1,9 +1,9 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: @info_page.title, parent_title: "Info Pages", parent_path: admin_info_pages_path, back_path: admin_info_pages_path %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5" style="max-width: 920px;">
-        <h1 class="fw-bolder mb-2"><%= @info_page.title %></h1>
-        <p class="text-muted">Slug: <%= @info_page.slug %> · Published: <%= @info_page.published ? "Yes" : "No" %></p>
+        <p class="text-muted mb-4">Slug: <code><%= @info_page.slug %></code> &nbsp; <%= @info_page.published ? '<span class="badge text-bg-success">Published</span>'.html_safe : '<span class="badge text-bg-secondary">Draft</span>'.html_safe %></p>
 
         <div class="mt-4"><%= simple_format(@info_page.body) %></div>
 
@@ -12,7 +12,7 @@
             <%= link_to "Delete", admin_info_page_path(@info_page), data: { turbo_method: :delete, turbo_confirm: "Delete this info page?" }, class: "btn btn-outline-danger" %>
         </div>
 
-        <%= link_to "Back", admin_info_pages_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Info Pages", admin_info_pages_path, class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

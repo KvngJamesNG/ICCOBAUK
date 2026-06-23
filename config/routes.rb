@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :gallery_images
     resources :slider_images
     resources :info_pages
+    resources :temp_writer_accounts, only: [ :index, :create, :destroy ]
     resource :site_setting, only: [ :show, :edit, :update ]
   end
 

@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   def home
     @slider_images = SliderImage.active.ordered
     @featured_articles = Article.recent.limit(3)
+    @latest_article = @featured_articles.first
     @recent_gallery_images = GalleryImage.recent.limit(8)
     @site_setting = SiteSetting.current
   end

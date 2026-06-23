@@ -1,16 +1,13 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: @gallery_group.name, parent_title: "Gallery Groups", parent_path: admin_gallery_groups_path, back_path: admin_gallery_groups_path %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5">
         <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
-            <div>
-                <h1 class="fw-bolder mb-2"><%= @gallery_group.name %></h1>
-                <p class="text-muted mb-0"><%= pluralize(@gallery_images.count, "image") %> in this group</p>
-            </div>
+            <p class="text-muted mb-0"><%= pluralize(@gallery_images.count, "image") %> in this group</p>
             <div class="d-flex gap-2 flex-wrap justify-content-end">
                 <%= link_to "Add Image", new_admin_gallery_image_path(gallery_group_id: @gallery_group.id), class: "btn btn-primary" %>
                 <%= link_to "Edit Group", edit_admin_gallery_group_path(@gallery_group), class: "btn btn-outline-primary" %>
-                <%= link_to "Back", admin_gallery_groups_path, class: "btn btn-outline-secondary" %>
             </div>
         </div>
 

@@ -16,17 +16,21 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100 <%= "admin-layout" if respond_to?(:admin_layout_active?) && admin_layout_active? %>">
-    <% if notice.present? %>
-    <div class="container px-5 mt-3">
-        <div class="alert alert-success" role="alert"><%= notice %></div>
-    </div>
-    <% end %>
+    <div class="flash-stack" aria-live="polite" aria-atomic="true">
+        <% if notice.present? %>
+        <div class="alert alert-success flash-floating" role="alert" data-autodismiss="true">
+            <span><%= notice %></span>
+            <button type="button" class="btn-close" aria-label="Close" data-flash-close="true"></button>
+        </div>
+        <% end %>
 
-    <% if alert.present? %>
-    <div class="container px-5 mt-3">
-        <div class="alert alert-danger" role="alert"><%= alert %></div>
+        <% if alert.present? %>
+        <div class="alert alert-danger flash-floating" role="alert" data-autodismiss="true">
+            <span><%= alert %></span>
+            <button type="button" class="btn-close" aria-label="Close" data-flash-close="true"></button>
+        </div>
+        <% end %>
     </div>
-    <% end %>
 
     <div id="app-content">
         <%= yield %>

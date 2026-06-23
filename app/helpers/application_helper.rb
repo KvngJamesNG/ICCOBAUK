@@ -17,4 +17,10 @@ module ApplicationHelper
 	def page_title
 		"#{current_page_label} | #{site_name}"
 	end
+
+	def admin_sidebar_link_class(link_path, current_path)
+		active = current_path.start_with?(link_path) &&
+		         (link_path != "/admin" || current_path == "/admin")
+		active ? "admin-sidebar-link is-active" : "admin-sidebar-link"
+	end
 end

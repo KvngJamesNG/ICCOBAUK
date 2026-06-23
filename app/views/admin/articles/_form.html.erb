@@ -26,6 +26,7 @@
 </div>
 
 <div class="row g-3">
+    <% unless writer_signed_in? %>
     <div class="col-md-4">
         <%= form.label :author_id, "Article Owner", class: "form-label" %>
         <%= form.collection_select :author_id, @authors, :id, :name, { include_blank: "Select an author" }, class: "form-select" %>
@@ -40,6 +41,7 @@
         <%= form.label :author_name, class: "form-label" %>
         <%= form.text_field :author_name, class: "form-control", placeholder: "Fallback text if owner not selected" %>
     </div>
+    <% end %>
     <div class="col-md-12">
         <%= form.label :published_on, class: "form-label" %>
         <%= form.date_field :published_on, class: "form-control" %>

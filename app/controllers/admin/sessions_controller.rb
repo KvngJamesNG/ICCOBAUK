@@ -8,9 +8,17 @@ class Admin::SessionsController < ApplicationController
   def create
     if valid_admin_credentials?(params[:username], params[:password])
       session[:admin_authenticated] = true
+      session[:admin_role] = "admin"
       session[:admin_display_name] = params[:username].to_s
       session[:admin_last_seen_at] = Time.current.to_i
       redirect_to admin_root_path, notice: "Welcome back, admin."
+    elsif (writer_account = valid_writer_credentials?(params[:username], params[:password]))
+      session[:admin_authenticated] = true
+      session[:admin_role] = "writer"
+      session[:writer_account_id] = writer_account.id
+      session[:admin_display_name] = writer_account.username
+      session[:admin_last_seen_at] = Time.current.to_i
+      redirect_to admin_articles_path, notice: "Signed in with temporary writer access."
     else
       flash.now[:alert] = "Invalid username or password."
       render :new, status: :unprocessable_entity
@@ -56,5 +64,22 @@ class Admin::SessionsController < ApplicationController
       Rails.application.credentials.dig(:admin, :password).presence ||
       SiteSetting.current.admin_password.presence ||
       (Rails.env.development? ? "change-me" : nil)
+  end
+
+  def valid_writer_credentials?(identifier, password)
+    TempWriterAccount.purge_expired!
+
+    lookup_value = identifier.to_s.strip.downcase
+    writer_account = TempWriterAccount.find_by(username: lookup_value)
+
+    if writer_account.blank? && lookup_value.include?("@")
+      email_digest = Digest::SHA256.hexdigest(lookup_value)
+      writer_account = TempWriterAccount.find_by(email_digest: email_digest)
+    end
+
+    return nil if writer_account.blank? || writer_account.expired?
+    return writer_account if writer_account.authenticate(password.to_s)
+
+    nil
   end
 end

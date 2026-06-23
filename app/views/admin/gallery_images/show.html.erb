@@ -1,8 +1,8 @@
 <%= render "partials/header" %>
+<%= render "partials/admin_page_header", title: @gallery_image.title, parent_title: "Gallery Images", parent_path: admin_gallery_images_path, back_path: admin_gallery_images_path %>
 
-<section class="py-5">
+<section class="py-4">
     <div class="container px-5" style="max-width: 900px;">
-        <h1 class="fw-bolder mb-2"><%= @gallery_image.title %></h1>
         <% if @gallery_image.gallery_group.present? %>
         <p class="mb-2"><span class="badge text-bg-primary"><%= @gallery_image.gallery_group.name %></span></p>
         <% end %>
@@ -19,7 +19,7 @@
             <%= link_to "Delete", admin_gallery_image_path(@gallery_image), data: { turbo_method: :delete, turbo_confirm: "Delete this image?" }, class: "btn btn-outline-danger" %>
         </div>
 
-        <%= link_to "Back", admin_gallery_images_path, class: "btn btn-link px-0 mt-3" %>
+        <%= link_to "Back to Gallery", admin_gallery_images_path, class: "btn btn-link px-0 mt-3" %>
     </div>
 </section>
 

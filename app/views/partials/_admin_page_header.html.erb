@@ -3,7 +3,11 @@
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
             <h1 class="h3 fw-bolder mb-0"><%= local_assigns[:title] %></h1>
             <% if local_assigns[:parent_title].present? %>
+            <% if local_assigns[:parent_path].present? %>
+            <%= link_to local_assigns[:parent_title], local_assigns[:parent_path], class: "small text-muted text-uppercase text-decoration-none" %>
+            <% else %>
             <span class="small text-muted text-uppercase"><%= local_assigns[:parent_title] %></span>
+            <% end %>
             <% end %>
         </div>
     </div>
